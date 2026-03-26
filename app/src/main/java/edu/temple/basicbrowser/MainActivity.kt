@@ -36,20 +36,26 @@ class MainActivity : AppCompatActivity() {
             // if  not .com add
             var url_text = urlEditText.text.toString()
             if (url_text.isBlank() || url_text.isEmpty()) return@setOnClickListener;
-            if (!url_text.contains("www.")){
-                url_text = "www.$url_text";
-            }
-            if (!url_text.contains("https://")){
-                url_text = "https://$url_text";
-            }
-             if (!url_text.contains(".com")){
-                url_text = "$url_text.com";
-            }
-            Log.d("URL fixed",url_text)
+            url_text = fixURL(url_text)
 
             webView.loadUrl(url_text.toString());
 
         }
 
+    }
+
+    private fun fixURL(url_text: String): String {
+        var url_text1 = url_text
+        if (!url_text1.contains("www.")) {
+            url_text1 = "www.$url_text1";
+        }
+        if (!url_text1.contains("https://")) {
+            url_text1 = "https://$url_text1";
+        }
+        if (!url_text1.contains(".com")) {
+            url_text1 = "$url_text1.com";
+        }
+        Log.d("URL fixed", url_text1)
+        return url_text1
     }
 }
