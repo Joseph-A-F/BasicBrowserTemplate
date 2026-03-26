@@ -1,5 +1,6 @@
 package edu.temple.basicbrowser
 
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
@@ -26,6 +27,13 @@ class MainActivity : AppCompatActivity() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
             }
+        }
+
+        goButton.setOnClickListener {
+            if (urlEditText.text.isNotEmpty() || urlEditText.text.isNotBlank()){
+                webView.loadUrl(urlEditText.text.toString());
+            }
+
         }
 
     }
