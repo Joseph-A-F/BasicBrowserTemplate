@@ -3,6 +3,7 @@ package edu.temple.basicbrowser
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
@@ -30,9 +31,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         goButton.setOnClickListener {
-            if (urlEditText.text.isNotEmpty() || urlEditText.text.isNotBlank()){
-                webView.loadUrl(urlEditText.text.toString());
+            // if www. isn't in url. add it
+            // if not https://
+            // if  not .com add
+            var url_text = urlEditText.text.toString()
+            if (url_text.isBlank() || url_text.isEmpty()) return@setOnClickListener;
+            if (!url_text.contains("www.")){
+                url_text = "www.$url_text";
             }
+            if (!url_text.contains("https://")){
+                url_text = "https://$url_text";
+            }
+             if (!url_text.contains(".com")){
+                url_text = "$url_text.com";
+            }
+            Log.d("URL fixed",url_text)
+
+            webView.loadUrl(url_text.toString());
 
         }
 
